@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:moneymanager_free/hive_models/in_category_model.dart';
+import 'package:moneymanager_free/hive_models/income_category_model.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../main.dart';
@@ -17,15 +17,15 @@ class InCategoryDB extends ChangeNotifier {
     return _instance;
   }
 
-  final _box = Hive.box<InCategory>(inCategoryBoxName);
+  final _box = Hive.box<IncomeCategory>(incomeCategoryBoxName);
 
-  List<InCategory> getInMainCategory() {
+  List<IncomeCategory> getInMainCategory() {
     return _box.values
-        .where((element) => element.type == TypeOfInCategory.main)
+        .where((element) => element.type == TypeOfIncomeCategory.main)
         .toList();
   }
 
-  Future<void> updateItem(InCategory inCategory) async {
+  Future<void> updateItem(IncomeCategory inCategory) async {
     final key = _box.keys.firstWhere(
       (k) => _box.get(k)?.assetUid == inCategory.assetUid,
       orElse: () => null,
@@ -38,34 +38,36 @@ class InCategoryDB extends ChangeNotifier {
       {required String name,
       required String description,
       String? parentId}) async {
-    InCategory inCategory = InCategory(
+    IncomeCategory inCategory = IncomeCategory(
       const Uuid().v4(),
       name: name,
       description: description,
       parentId: parentId,
       createdAt: DateTime.now(),
-      type: parentId != null ? TypeOfInCategory.sub : TypeOfInCategory.main,
+      type: parentId != null
+          ? TypeOfIncomeCategory.sub
+          : TypeOfIncomeCategory.main,
       orderBy: 0,
     );
     await _box.add(inCategory);
     notifyListeners();
   }
 
-  List<InCategory> getInSubCategory(String parentId) {
+  List<IncomeCategory> getInSubCategory(String parentId) {
     return _box.values
         .where((element) =>
-            element.type == TypeOfInCategory.sub &&
+            element.type == TypeOfIncomeCategory.sub &&
             element.parentId == parentId)
         .toList();
   }
 
-  Future<void> deleteItem(InCategory inCategory) async {
+  Future<void> deleteItem(IncomeCategory inCategory) async {
     final item = _box.values.firstWhere((element) =>
         element.assetUid == inCategory.assetUid &&
         element.name == inCategory.name);
     if (item.parentId == null) {
       final listOfSubItem = _box.values.where((element) =>
-          element.type == TypeOfInCategory.sub &&
+          element.type == TypeOfIncomeCategory.sub &&
           element.parentId == inCategory.assetUid);
 
       for (var element in listOfSubItem) {

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'add_screen_content.dart';
-import '../../hive_models/in_category_model.dart';
-import 'in_category_db_notifier.dart';
+import 'add_income_item_screen.dart';
+import '../../hive_models/income_category_model.dart';
+import 'income_category_db_notifier.dart';
 
-final inCatProvidertoSubCategory = Provider<InCategory>((ref) {
+final inCatProvidertoSubCategory = Provider<IncomeCategory>((ref) {
   throw UnimplementedError();
 });
 
-class SubCategoryScreen extends ConsumerWidget {
-  const SubCategoryScreen({super.key});
+class SubInCategoryScreen extends ConsumerWidget {
+  const SubInCategoryScreen({super.key});
   @override
   Widget build(BuildContext context, ref) {
     final parentId = ref.watch(inCatProvidertoSubCategory).assetUid;
@@ -24,7 +24,7 @@ class SubCategoryScreen extends ConsumerWidget {
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {
-          InCategory inCategory = inSubCategories[index];
+          IncomeCategory inCategory = inSubCategories[index];
           return ListTile(
             title: Text(inCategory.name),
             subtitle: Text(inCategory.description),
@@ -34,7 +34,8 @@ class SubCategoryScreen extends ConsumerWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddItemScreen(inCategory: inCategory),
+                    builder: (context) =>
+                        AddIncomeItemScreen(inCategory: inCategory),
                   ),
                 );
               },
@@ -48,7 +49,7 @@ class SubCategoryScreen extends ConsumerWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AddItemScreen(
+              builder: (context) => AddIncomeItemScreen(
                 parentId: ref.watch(inCatProvidertoSubCategory).assetUid,
               ),
             ),

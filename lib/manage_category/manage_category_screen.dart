@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanager_free/hive_models/in_category_model.dart';
-import 'package:moneymanager_free/manage_category/expense_category/manage_expense_category.dart';
+import 'package:moneymanager_free/manage_category/expense_category/manage_ex_category.dart';
 import 'package:moneymanager_free/manage_category/income_category/manage_in_category.dart';
 
-import 'income_category/add_screen_content.dart';
+import 'income_category/add_income_item_screen.dart';
 
 class ManageCategoryScreen extends StatefulWidget {
   const ManageCategoryScreen({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class ManageCategoryScreen extends StatefulWidget {
 
 class _ManageCategoryScreenState extends State<ManageCategoryScreen> {
   int index = 0;
-  List<Widget> get _pages => const [
+  List<Widget> get _pages =>  [
         ManageInCategoryPage(),
         ManageExCategoryPage(),
       ];
@@ -51,7 +50,7 @@ class _ManageCategoryScreenState extends State<ManageCategoryScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const AddItemScreen(),
+              builder: (context) => const AddIncomeItemScreen(),
             ),
           );
         },

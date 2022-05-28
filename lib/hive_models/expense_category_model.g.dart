@@ -1,34 +1,34 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'in_category_model.dart';
+part of 'expense_category_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class InCategoryAdapter extends TypeAdapter<InCategory> {
+class ExpenseCategoryAdapter extends TypeAdapter<ExpenseCategory> {
   @override
-  final int typeId = 3;
+  final int typeId = 1;
 
   @override
-  InCategory read(BinaryReader reader) {
+  ExpenseCategory read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return InCategory(
+    return ExpenseCategory(
       fields[1] as String,
       name: fields[0] as String,
       createdAt: fields[3] as DateTime,
       description: fields[4] as String,
       orderBy: fields[5] as int,
-      type: fields[6] as TypeOfInCategory,
+      type: fields[6] as TypeOfExpenseCategory,
       parentId: fields[7] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, InCategory obj) {
+  void write(BinaryWriter writer, ExpenseCategory obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
@@ -53,34 +53,34 @@ class InCategoryAdapter extends TypeAdapter<InCategory> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is InCategoryAdapter &&
+      other is ExpenseCategoryAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
 
-class TypeOfInCategoryAdapter extends TypeAdapter<TypeOfInCategory> {
+class TypeOfExpenseCategoryAdapter extends TypeAdapter<TypeOfExpenseCategory> {
   @override
-  final int typeId = 4;
+  final int typeId = 2;
 
   @override
-  TypeOfInCategory read(BinaryReader reader) {
+  TypeOfExpenseCategory read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return TypeOfInCategory.main;
+        return TypeOfExpenseCategory.main;
       case 1:
-        return TypeOfInCategory.sub;
+        return TypeOfExpenseCategory.sub;
       default:
-        return TypeOfInCategory.main;
+        return TypeOfExpenseCategory.main;
     }
   }
 
   @override
-  void write(BinaryWriter writer, TypeOfInCategory obj) {
+  void write(BinaryWriter writer, TypeOfExpenseCategory obj) {
     switch (obj) {
-      case TypeOfInCategory.main:
+      case TypeOfExpenseCategory.main:
         writer.writeByte(0);
         break;
-      case TypeOfInCategory.sub:
+      case TypeOfExpenseCategory.sub:
         writer.writeByte(1);
         break;
     }
@@ -92,7 +92,7 @@ class TypeOfInCategoryAdapter extends TypeAdapter<TypeOfInCategory> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TypeOfInCategoryAdapter &&
+      other is TypeOfExpenseCategoryAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

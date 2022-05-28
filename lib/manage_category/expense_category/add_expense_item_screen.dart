@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:moneymanager_free/hive_models/in_category_model.dart';
-import 'in_category_db_notifier.dart';
 
-class AddItemScreen extends StatefulWidget {
-  const AddItemScreen({this.inCategory, this.parentId, Key? key})
+import '../../hive_models/expense_category_model.dart';
+import 'expense_category_notifier.dart';
+
+class AddExpenseItemScreen extends StatefulWidget {
+  const AddExpenseItemScreen({this.exCategory, this.parentId, Key? key})
       : super(key: key);
   final String? parentId;
-  final InCategory? inCategory;
+  final ExpenseCategory? exCategory;
   @override
-  State<AddItemScreen> createState() => _AddItemScreenState();
+  State<AddExpenseItemScreen> createState() => _AddExpenseItemScreenState();
 }
 
-class _AddItemScreenState extends State<AddItemScreen> {
+class _AddExpenseItemScreenState extends State<AddExpenseItemScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController controllerNameField = TextEditingController();
   final TextEditingController controllerDescField = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    String name = widget.inCategory?.name ?? '';
-    String description = widget.inCategory?.description ?? '';
+    String name = widget.exCategory?.name ?? '';
+    String description = widget.exCategory?.description ?? '';
     controllerNameField.text = name;
     controllerDescField.text = description;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            widget.parentId != null || widget.inCategory?.parentId != null
+            widget.parentId != null || widget.exCategory?.parentId != null
                 ? 'Subcategory'
-                : 'Income Category'),
+                : 'OutCome Category'),
         actions: [
-          widget.inCategory != null
+          widget.exCategory != null
               ? Consumer(builder: (context, ref, _) {
                   return TextButton.icon(
                     onPressed: () {
@@ -49,8 +50,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                 child: const Text('DELETE'),
                                 onPressed: () async {
                                   await ref
-                                      .read(incomeCategoryProvider)
-                                      .deleteItem(widget.inCategory!)
+                                      .read(expenseCategoryProvider)
+                                      .deleteItem(widget.exCategory!)
                                       .then(
                                     (value) {
                                       //pop from alert dialog
@@ -133,19 +134,19 @@ class _AddItemScreenState extends State<AddItemScreen> {
             name = controllerNameField.text;
             description = controllerDescField.text;
             if (_formKey.currentState!.validate()) {
-              if (widget.inCategory != null) {
-                final inCategoryItem = widget.inCategory!.copyWith(
+              if (widget.exCategory != null) {
+                final exCategoryItem = widget.exCategory!.copyWith(
                   name: name,
                   description: description,
                 );
 
                 ref
-                    .read(incomeCategoryProvider)
-                    .updateItem(inCategoryItem)
+                    .read(expenseCategoryProvider)
+                    .updateItem(exCategoryItem)
                     .then((value) => Navigator.of(context).pop());
               } else {
                 ref
-                    .read(incomeCategoryProvider)
+                    .read(expenseCategoryProvider)
                     .add(
                       name: name,
                       description: description,

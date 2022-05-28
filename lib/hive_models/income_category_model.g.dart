@@ -1,34 +1,34 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'out_category_model.dart';
+part of 'income_category_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class OutCategoryAdapter extends TypeAdapter<OutCategory> {
+class IncomeCategoryAdapter extends TypeAdapter<IncomeCategory> {
   @override
-  final int typeId = 1;
+  final int typeId = 3;
 
   @override
-  OutCategory read(BinaryReader reader) {
+  IncomeCategory read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return OutCategory(
+    return IncomeCategory(
       fields[1] as String,
       name: fields[0] as String,
       createdAt: fields[3] as DateTime,
       description: fields[4] as String,
       orderBy: fields[5] as int,
-      type: fields[6] as TypeOfOutCategory,
+      type: fields[6] as TypeOfIncomeCategory,
       parentId: fields[7] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, OutCategory obj) {
+  void write(BinaryWriter writer, IncomeCategory obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
@@ -53,34 +53,34 @@ class OutCategoryAdapter extends TypeAdapter<OutCategory> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is OutCategoryAdapter &&
+      other is IncomeCategoryAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
 
-class TypeOfOutCategoryAdapter extends TypeAdapter<TypeOfOutCategory> {
+class TypeOfIncomeCategoryAdapter extends TypeAdapter<TypeOfIncomeCategory> {
   @override
-  final int typeId = 2;
+  final int typeId = 4;
 
   @override
-  TypeOfOutCategory read(BinaryReader reader) {
+  TypeOfIncomeCategory read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return TypeOfOutCategory.main;
+        return TypeOfIncomeCategory.main;
       case 1:
-        return TypeOfOutCategory.sub;
+        return TypeOfIncomeCategory.sub;
       default:
-        return TypeOfOutCategory.main;
+        return TypeOfIncomeCategory.main;
     }
   }
 
   @override
-  void write(BinaryWriter writer, TypeOfOutCategory obj) {
+  void write(BinaryWriter writer, TypeOfIncomeCategory obj) {
     switch (obj) {
-      case TypeOfOutCategory.main:
+      case TypeOfIncomeCategory.main:
         writer.writeByte(0);
         break;
-      case TypeOfOutCategory.sub:
+      case TypeOfIncomeCategory.sub:
         writer.writeByte(1);
         break;
     }
@@ -92,7 +92,7 @@ class TypeOfOutCategoryAdapter extends TypeAdapter<TypeOfOutCategory> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TypeOfOutCategoryAdapter &&
+      other is TypeOfIncomeCategoryAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

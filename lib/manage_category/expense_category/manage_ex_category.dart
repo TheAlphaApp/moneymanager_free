@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:moneymanager_free/manage_category/income_category/sub_in_category_screen.dart';
 
-import '../../hive_models/income_category_model.dart';
-import 'add_income_item_screen.dart';
-import 'income_category_db_notifier.dart';
 
-class ManageInCategoryPage extends ConsumerWidget {
-  const ManageInCategoryPage({super.key});
+import '../../hive_models/expense_category_model.dart';
+import 'add_expense_item_screen.dart';
+import 'expense_category_notifier.dart';
+import 'sub_ex_category_screen.dart';
+
+class ManageExCategoryPage extends ConsumerWidget {
+  const ManageExCategoryPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final inMainCategories =
-        ref.watch(incomeCategoryProvider).getInMainCategory();
+    final exMainCategories =
+        ref.watch(expenseCategoryProvider).getInMainCategory();
     return ListView.builder(
-      itemCount: inMainCategories.length,
+      itemCount: exMainCategories.length,
       itemBuilder: (context, index) {
-        IncomeCategory inCategory = inMainCategories[index];
+        ExpenseCategory exCategory = exMainCategories[index];
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Card(
             borderOnForeground: true,
             child: ListTile(
-              title: Text(inCategory.name),
-              subtitle: Text(inCategory.description),
+              title: Text(exCategory.name),
+              subtitle: Text(exCategory.description),
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () async {
@@ -31,7 +32,7 @@ class ManageInCategoryPage extends ConsumerWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          AddIncomeItemScreen(inCategory: inCategory),
+                          AddExpenseItemScreen(exCategory: exCategory),
                     ),
                   );
                 },
@@ -42,9 +43,9 @@ class ManageInCategoryPage extends ConsumerWidget {
                   MaterialPageRoute(
                     builder: (context) => ProviderScope(
                       overrides: [
-                        inCatProvidertoSubCategory.overrideWithValue(inCategory)
+                        exCatProvidertoSubCategory.overrideWithValue(exCategory)
                       ],
-                      child: const SubInCategoryScreen(),
+                      child: const SubExCategoryScreen(),
                     ),
                   ),
                 );
